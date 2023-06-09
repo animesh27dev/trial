@@ -1,14 +1,16 @@
-from typing import Optional
+from flask import Flask, request
+from bs4 import BeautifulSoup
+import requests
 
-from fastapi import FastAPI
+app = Flask(__name__)
 
-app = FastAPI()
+@app.route('/', methods=['GET'])
+def index():
+    url = request.args.get('url')
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    text = soup.get_text()
+    return text
 
-
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
+if __name__ == '__main__':
+    app.run(debug=True)
