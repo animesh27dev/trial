@@ -4,7 +4,7 @@ import requests
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET'])
+@app.route('/get', methods=['GET'])
 def index():
     url = request.args.get('url')
     page = requests.get(url)
