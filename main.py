@@ -6,9 +6,8 @@ import requests
 app = FastAPI()
 
 
-@app.get("/")
-async def root():
-    url = request.args.get('url')
+@app.get("/url/{url}")
+async def root(url: str):
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
     print(soup.prettify())
