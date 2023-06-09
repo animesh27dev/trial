@@ -9,6 +9,7 @@ def index():
     url = request.args.get('url')
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
+    print(soup.prettify())
     text = soup.get_text()
     return text
 
