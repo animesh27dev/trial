@@ -14,3 +14,8 @@ async def root():
     print(soup.prettify())
     text = soup.get_text()
     return text
+
+
+@app.get("/items/{item_id}")
+def read_item(item_id: int, q: Optional[str] = None):
+    return {"item_id": item_id, "q": q}
